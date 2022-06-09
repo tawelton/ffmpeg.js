@@ -215,12 +215,11 @@ mergeInto(LibraryManager.library, {
                 console.log("MAKING REQUEST TO", stream.upload_url);
                 const upload_data = new Blob(stream.upload_data);
                 if (stream.upload_url.startsWith('postMessage:')) {
-                    const upload_stream = upload_data.stream();
-                    self.postMessage(Object.assign({
+                    self.postMessage({
                         type: 'upload',
                         url: stream.upload_url,
-                        stream: upload_stream
-                    }, self.upload_options), [upload_stream]);
+                        data: upload_data
+                    });
                 } else {
                     const options = Object.assign({
                         mode: 'no-cors',
